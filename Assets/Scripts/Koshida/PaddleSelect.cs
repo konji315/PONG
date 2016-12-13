@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class PaddleSelect : MonoBehaviour {
 
-    public Text text1;
-    public Text text2;
+    public GameObject[] _paddles1 = new GameObject[5];
+    public GameObject[] _paddles2 = new GameObject[5];
 
     private int _paddle1_ID = 0;
     private int _paddle2_ID = 0;
@@ -12,56 +12,71 @@ public class PaddleSelect : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        text1.text = _paddle1_ID.ToString();
-        text2.text = _paddle2_ID.ToString();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        _paddles1[_paddle1_ID].SetActive(true);
+        _paddles2[_paddle2_ID].SetActive(true);
+    }
+
+    // Update is called once per frame
+    void Update () {
 
         //Aキーを押したら
 		if(Input.GetKeyDown(KeyCode.A))
         {
+            //1Pの現在のパドルを非表示
+            _paddles1[_paddle1_ID].SetActive(false);
+
+            //次のパドルへ
             _paddle1_ID--;
             if(_paddle1_ID < 0)
             {
-                _paddle1_ID = _paddle_num;
+                _paddle1_ID = _paddle_num - 1;
             }
 
-            text1.text = _paddle1_ID.ToString();
+            //次のパドルを表示
+            _paddles1[_paddle1_ID].SetActive(true);
         }
         //Dキーを押したら
         else if (Input.GetKeyDown(KeyCode.D))
         {
+            //1Pの現在のパドルを非表示
+            _paddles1[_paddle1_ID].SetActive(false);
+
             _paddle1_ID++;
-            if (_paddle1_ID > _paddle_num)
+            if (_paddle1_ID > _paddle_num - 1)
             {
                 _paddle1_ID = 0;
             }
-            text1.text = _paddle1_ID.ToString();
+            //次のパドルを表示
+            _paddles1[_paddle1_ID].SetActive(true);
         }
 
         //左矢印キーを押したら
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            //2Pの現在のパドルを非表示
+            _paddles2[_paddle2_ID].SetActive(false);
+
             _paddle2_ID--;
             if (_paddle2_ID < 0)
             {
-                _paddle2_ID = _paddle_num;
+                _paddle2_ID = _paddle_num - 1;
             }
-
-            text2.text = _paddle2_ID.ToString();
+            //次のパドルを表示
+            _paddles2[_paddle2_ID].SetActive(true);
         }
         //右矢印キーを押したら
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            //2Pの現在のパドルを非表示
+            _paddles2[_paddle2_ID].SetActive(false);
+
             _paddle2_ID++;
-            if (_paddle2_ID > _paddle_num)
+            if (_paddle2_ID > _paddle_num - 1)
             {
                 _paddle2_ID = 0;
             }
-
-            text2.text = _paddle2_ID.ToString();
+            //次のパドルを表示
+            _paddles2[_paddle2_ID].SetActive(true);
         }
     }
 }
