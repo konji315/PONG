@@ -13,10 +13,13 @@ public class PaddleMove : MonoBehaviour
         {
             move += new Vector3(1, 0, 0);
         }
-
-        if (Input.GetKey(KeyCode.LeftArrow))
+        else if (Input.GetKey(KeyCode.LeftArrow))
         {
             move += new Vector3(-1, 0, 0);
+        }
+        else
+        {
+            transform.position = transform.position;
         }
 
         transform.Translate(move * Time.deltaTime * speed);
