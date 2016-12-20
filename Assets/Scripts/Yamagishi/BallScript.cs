@@ -4,13 +4,14 @@ using System.Collections;
 public class BallScript : MonoBehaviour
 {
     public float speed = 1;
-    private int count = 0;
-    private GameObject canvas;
+    private int count;
+    public GameObject canvas;
 
 	// Use this for initialization
 	void Start ()
     {
-        canvas = GameObject.Find("CanvasGameStart");
+        canvas.SetActive(true);
+        count = 0;
     }
 
     // Update is called once per frame
