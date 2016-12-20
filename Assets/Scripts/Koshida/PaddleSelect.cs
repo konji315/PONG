@@ -13,17 +13,23 @@ public class PaddleSelect : MonoBehaviour {
     [Range(0, 4)]
     public int _paddle2_ID = 0;
 
-    private int _paddle_num = 5;
-
     [System.NonSerialized]
     public bool _is_enter_1P;
     [System.NonSerialized]
     public bool _is_enter_2P;
+    
+    public AudioClip _select_se;
+    public AudioClip _enter_se;
+    public AudioClip _cancel_se;
 
     StatusUIScript statusUI;
 
+    private int _paddle_num = 5;
+
     // Use this for initialization
     void Start () {
+        _paddle1_ID = 0;
+        _paddle2_ID = 0;
         PlayerPrefs.DeleteKey("paddle1");
         PlayerPrefs.DeleteKey("paddle2");
 
@@ -53,6 +59,9 @@ public class PaddleSelect : MonoBehaviour {
                     _paddle1_ID = _paddle_num - 1;
                 }
 
+                //パドル選択音
+                GetComponent<AudioSource>().PlayOneShot(_select_se);
+
                 //次のパドルとステータスを表示
                 _paddles1[_paddle1_ID].SetActive(true);
                 statusUI._1Pstatus_UI[_paddle1_ID].SetActive(true);
@@ -69,6 +78,10 @@ public class PaddleSelect : MonoBehaviour {
                 {
                     _paddle1_ID = 0;
                 }
+
+                //パドル選択音
+                GetComponent<AudioSource>().PlayOneShot(_select_se);
+
                 //次のパドルとステータスを表示
                 _paddles1[_paddle1_ID].SetActive(true);
                 statusUI._1Pstatus_UI[_paddle1_ID].SetActive(true);
@@ -90,6 +103,10 @@ public class PaddleSelect : MonoBehaviour {
                 {
                     _paddle2_ID = _paddle_num - 1;
                 }
+
+                //パドル選択音
+                GetComponent<AudioSource>().PlayOneShot(_select_se);
+
                 //次のパドルとステータスを表示
                 _paddles2[_paddle2_ID].SetActive(true);
                 statusUI._2Pstatus_UI[_paddle2_ID].SetActive(true);
@@ -106,6 +123,10 @@ public class PaddleSelect : MonoBehaviour {
                 {
                     _paddle2_ID = 0;
                 }
+
+                //パドル選択音
+                GetComponent<AudioSource>().PlayOneShot(_select_se);
+
                 //次のパドルとステータスを表示
                 _paddles2[_paddle2_ID].SetActive(true);
                 statusUI._2Pstatus_UI[_paddle2_ID].SetActive(true);
@@ -116,28 +137,52 @@ public class PaddleSelect : MonoBehaviour {
         //パドル決定
         /////////////////////////////////////////////////////////////
 
-        //1Pがパドル選択完了
-        if (Input.GetKeyDown(KeyCode.Space))
+        //1P未決定時
+        if (!_is_enter_1P)
         {
-            _is_enter_1P = true;
-        }
-        //1Pがパドル選択キャンセル
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            _is_enter_1P = false;
-        }
-
-
-        //2Pがパドル選択完了
-        if(Input.GetKeyDown(KeyCode.Return))
-        {
-            _is_enter_2P = true;
+            //1Pがパドル選択完了
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _is_enter_1P = true;
+                //決定音
+                GetComponent<AudioSource>().PlayOneShot(_enter_se);
+            }
         }
 
-        //2Pがパドル選択キャンセル
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        //1P決定時
+        if (_is_enter_1P)
         {
-            _is_enter_2P = false;
+            //1Pがパドル選択キャンセル
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                _is_enter_1P = false;
+                //キャンセル音
+                GetComponent<AudioSource>().PlayOneShot(_cancel_se);
+            }
+        }
+
+        //2P未決定時
+        if (!_is_enter_2P)
+        {
+            //2Pがパドル選択完了
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                _is_enter_2P = true;
+                //決定音
+                GetComponent<AudioSource>().PlayOneShot(_enter_se);
+            }
+        }
+
+        //2P決定時
+        if (_is_enter_2P)
+        {
+            //2Pがパドル選択キャンセル
+            if (Input.GetKeyDown(KeyCode.Backspace))
+            {
+                _is_enter_2P = false;
+                //キャンセル音
+                GetComponent<AudioSource>().PlayOneShot(_cancel_se);
+            }
         }
     }
 }

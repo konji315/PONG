@@ -5,23 +5,33 @@ using UnityEngine;
 public class BulletCreate : MonoBehaviour {
 
     public int frequency = 12;  //弾が生成される頻度
-    int count = 0;              //カウント用
 
+    [Tooltip("ギミック開始秒数")]
+    public float start_time = 60;
+
+    int count;              //カウント用
+    
     public GameObject Bullet;   //生成するゲームオブジェクト
 
     // Use this for initialization
-    void Start () {
-		
+    void Start ()
+    {
+        count = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        //弾を生成
-        if(count >= frequency)
+
+        if (start_time < 0)
         {
-            count = 0;
-            Instantiate(Bullet);
+            //弾を生成
+            if (count >= frequency)
+            {
+                count = 0;
+                Instantiate(Bullet, this.transform.position, Quaternion.identity);
+            }
+            count++;
         }
-        count++;
+        start_time -= Time.deltaTime;
 	}
 }

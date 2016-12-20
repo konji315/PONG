@@ -16,8 +16,6 @@ public class CountDown : MonoBehaviour {
 
     public float _fade_speed = 0.01f;
 
-    private bool is_limit;
-
     float time_counter;
     float alpha;
     float red, green, blue;
@@ -26,7 +24,6 @@ public class CountDown : MonoBehaviour {
 
     void Start()
     {
-        is_limit = false;
         alpha = 0;
         red = _panel.GetComponent<Image>().color.r;
         green = _panel.GetComponent<Image>().color.g;

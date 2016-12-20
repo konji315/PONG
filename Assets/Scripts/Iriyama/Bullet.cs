@@ -18,13 +18,13 @@ public class Bullet : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        shotDirection = Random.Range(180, 360);
+        shotDirection = Random.Range(0, 360);
         shotDirection2 = Random.Range(0, 360);
 
         Vector3 v;
         //指定した方向に設定
         v.x = Mathf.Cos(Mathf.Deg2Rad * shotDirection) * shotSpeed;
-        v.y = Mathf.Sin(Mathf.Deg2Rad * shotDirection) * shotSpeed;
+        v.y = Mathf.Sin(Mathf.Deg2Rad * shotDirection) * 0;
         v.z = Mathf.Sin(Mathf.Deg2Rad * shotDirection2) * shotSpeed;
         //Rigidbody型rdを作成
         Rigidbody rd = GetComponent<Rigidbody>();
