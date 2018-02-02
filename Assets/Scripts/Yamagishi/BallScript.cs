@@ -7,8 +7,8 @@ public class BallScript : MonoBehaviour
     private int count;
     public GameObject canvas;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         canvas.SetActive(true);
         count = 0;
@@ -25,5 +25,10 @@ public class BallScript : MonoBehaviour
                 ForceMode.VelocityChange);
             canvas.SetActive(false);
         }
+    }
+
+    void OnCollisionEnter()
+    {
+
     }
 }
